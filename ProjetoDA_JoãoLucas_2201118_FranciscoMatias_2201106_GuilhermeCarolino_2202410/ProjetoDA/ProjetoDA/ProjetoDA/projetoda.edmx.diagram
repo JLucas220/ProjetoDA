@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="03f30b747b134201b88bfc1297e41331" Name="Diagram1" ZoomLevel="74" >
+        <EntityTypeShape EntityType="projetoda.Pessoa" Width="1.5" PointX="3.25" PointY="3" />
+        <EntityTypeShape EntityType="projetoda.Escola" Width="1.5" PointX="6.25" PointY="0.5" />
+        <EntityTypeShape EntityType="projetoda.Filho" Width="1.5" PointX="0.5" PointY="1.25" />
+        <InheritanceConnector EntityType="projetoda.Filho" />
+        <AssociationConnector Association="projetoda.EscolaFilho" />
+        <EntityTypeShape EntityType="projetoda.Cliente" Width="1.5" PointX="0.625" PointY="7.25" />
+        <InheritanceConnector EntityType="projetoda.Cliente" />
+        <AssociationConnector Association="projetoda.ClienteFilho" />
+        <EntityTypeShape EntityType="projetoda.Compra" Width="1.5" PointX="2.875" PointY="7.25" />
+        <AssociationConnector Association="projetoda.ClienteCompra" />
+        <EntityTypeShape EntityType="projetoda.DetalheCompra" Width="1.5" PointX="5.125" PointY="7.5" />
+        <AssociationConnector Association="projetoda.DetalheCompraCompra" />
+        <EntityTypeShape EntityType="projetoda.TipoProduto" Width="1.5" PointX="9.375" PointY="7.875" />
+        <EntityTypeShape EntityType="projetoda.Inscricao" Width="1.5" PointX="5.125" PointY="3.375" />
+        <AssociationConnector Association="projetoda.FilhoInscricao" />
+        <EntityTypeShape EntityType="projetoda.Participacao" Width="1.5" PointX="8.25" PointY="1" />
+        <AssociationConnector Association="projetoda.EscolaParticipacao" />
+        <EntityTypeShape EntityType="projetoda.Evento" Width="1.5" PointX="11.25" PointY="2.125" />
+        <AssociationConnector Association="projetoda.EventoParticipacao" />
+        <EntityTypeShape EntityType="projetoda.Animador" Width="1.5" PointX="7" PointY="5.125" />
+        <InheritanceConnector EntityType="projetoda.Animador" />
+        <EntityTypeShape EntityType="projetoda.Colaboracao" Width="1.5" PointX="8.875" PointY="5.125" />
+        <AssociationConnector Association="projetoda.AnimadorColaboracao" />
+        <AssociationConnector Association="projetoda.EventoColaboracao" />
+        <AssociationConnector Association="projetoda.EventoInscricao" />
+        <EntityTypeShape EntityType="projetoda.Produto" Width="1.5" PointX="7.25" PointY="7.5" />
+        <AssociationConnector Association="projetoda.ProdutoDetalheCompra" />
+        <AssociationConnector Association="projetoda.ProdutoTipoProduto" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="projetoda" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="projetodaContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pessoa" EntityType="projetoda.Pessoa" />
+    <EntitySet Name="Escola" EntityType="projetoda.Escola" />
+    <AssociationSet Name="EscolaFilho" Association="projetoda.EscolaFilho">
+      <End Role="Escola" EntitySet="Escola" />
+      <End Role="Filho" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="ClienteFilho" Association="projetoda.ClienteFilho">
+      <End Role="Cliente" EntitySet="Pessoa" />
+      <End Role="Filho" EntitySet="Pessoa" />
+    </AssociationSet>
+    <EntitySet Name="Compra" EntityType="projetoda.Compra" />
+    <AssociationSet Name="ClienteCompra" Association="projetoda.ClienteCompra">
+      <End Role="Compra" EntitySet="Compra" />
+      <End Role="Cliente" EntitySet="Pessoa" />
+    </AssociationSet>
+    <EntitySet Name="DetalheCompra" EntityType="projetoda.DetalheCompra" />
+    <AssociationSet Name="DetalheCompraCompra" Association="projetoda.DetalheCompraCompra">
+      <End Role="DetalheCompra" EntitySet="DetalheCompra" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <EntitySet Name="TipoProduto" EntityType="projetoda.TipoProduto" />
+    <EntitySet Name="Inscricao" EntityType="projetoda.Inscricao" />
+    <AssociationSet Name="FilhoInscricao" Association="projetoda.FilhoInscricao">
+      <End Role="Filho" EntitySet="Pessoa" />
+      <End Role="Inscricao" EntitySet="Inscricao" />
+    </AssociationSet>
+    <EntitySet Name="Participacao" EntityType="projetoda.Participacao" />
+    <AssociationSet Name="EscolaParticipacao" Association="projetoda.EscolaParticipacao">
+      <End Role="Escola" EntitySet="Escola" />
+      <End Role="Participacao" EntitySet="Participacao" />
+    </AssociationSet>
+    <EntitySet Name="Evento" EntityType="projetoda.Evento" />
+    <AssociationSet Name="EventoParticipacao" Association="projetoda.EventoParticipacao">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Participacao" EntitySet="Participacao" />
+    </AssociationSet>
+    <EntitySet Name="Colaboracao" EntityType="projetoda.Colaboracao" />
+    <AssociationSet Name="AnimadorColaboracao" Association="projetoda.AnimadorColaboracao">
+      <End Role="Animador" EntitySet="Pessoa" />
+      <End Role="Colaboracao" EntitySet="Colaboracao" />
+    </AssociationSet>
+    <AssociationSet Name="EventoColaboracao" Association="projetoda.EventoColaboracao">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Colaboracao" EntitySet="Colaboracao" />
+    </AssociationSet>
+    <AssociationSet Name="EventoInscricao" Association="projetoda.EventoInscricao">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="Inscricao" EntitySet="Inscricao" />
+    </AssociationSet>
+    <EntitySet Name="Produto" EntityType="projetoda.Produto" />
+    <AssociationSet Name="ProdutoDetalheCompra" Association="projetoda.ProdutoDetalheCompra">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="DetalheCompra" EntitySet="DetalheCompra" />
+    </AssociationSet>
+    <AssociationSet Name="ProdutoTipoProduto" Association="projetoda.ProdutoTipoProduto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="TipoProduto" EntitySet="TipoProduto" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Pessoa">
+    <Key>
+      <PropertyRef Name="IdPessoa" />
+    </Key>
+    <Property Name="IdPessoa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <Property Name="Morada" Type="String" Nullable="false" />
+    <Property Name="Localidade" Type="String" Nullable="false" />
+    <Property Name="CodPostal" Type="String" Nullable="false" />
+    <Property Name="Telefone" Type="String" Nullable="false" />
+    <Property Name="Telemovel" Type="String" Nullable="false" />
+    <Property Name="Mail" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Escola">
+    <Key>
+      <PropertyRef Name="IdEscola" />
+    </Key>
+    <Property Name="IdEscola" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <Property Name="Morada" Type="String" Nullable="false" />
+    <Property Name="Telefone" Type="String" Nullable="false" />
+    <Property Name="Mail" Type="String" Nullable="false" />
+    <Property Name="Codpostal" Type="String" Nullable="false" />
+    <Property Name="Localidade" Type="String" Nullable="false" />
+    <NavigationProperty Name="Filhos" Relationship="projetoda.EscolaFilho" FromRole="Escola" ToRole="Filho" />
+    <NavigationProperty Name="Participacoes" Relationship="projetoda.EscolaParticipacao" FromRole="Escola" ToRole="Participacao" />
+  </EntityType>
+  <EntityType Name="Filho" BaseType="projetoda.Pessoa">
+    <Property Name="Sexo" Type="String" Nullable="false" />
+    <Property Name="DataNascimento" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Escolas" Relationship="projetoda.EscolaFilho" FromRole="Filho" ToRole="Escola" />
+    <Property Name="IdEscola" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="projetoda.ClienteFilho" FromRole="Filho" ToRole="Cliente" />
+    <Property Name="IdProgenitor" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Inscricoes" Relationship="projetoda.FilhoInscricao" FromRole="Filho" ToRole="Inscricao" />
+  </EntityType>
+  <Association Name="EscolaFilho">
+    <End Type="projetoda.Escola" Role="Escola" Multiplicity="1" />
+    <End Type="projetoda.Filho" Role="Filho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escola">
+        <PropertyRef Name="IdEscola" />
+      </Principal>
+      <Dependent Role="Filho">
+        <PropertyRef Name="IdEscola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Cliente" BaseType="projetoda.Pessoa">
+    <Property Name="ValorOferta" Type="String" Nullable="false" />
+    <Property Name="NrCartao" Type="String" Nullable="false" />
+    <NavigationProperty Name="Filhos" Relationship="projetoda.ClienteFilho" FromRole="Cliente" ToRole="Filho" />
+    <NavigationProperty Name="Compras" Relationship="projetoda.ClienteCompra" FromRole="Cliente" ToRole="Compra" />
+  </EntityType>
+  <Association Name="ClienteFilho">
+    <End Type="projetoda.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="projetoda.Filho" Role="Filho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdPessoa" />
+      </Principal>
+      <Dependent Role="Filho">
+        <PropertyRef Name="IdProgenitor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Compra">
+    <Key>
+      <PropertyRef Name="NrCompra" />
+    </Key>
+    <Property Name="NrCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Data" Type="DateTime" Nullable="false" />
+    <Property Name="UtilizouCartao" Type="String" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="projetoda.ClienteCompra" FromRole="Compra" ToRole="Cliente" />
+    <Property Name="IdCliente" Type="Int64" Nullable="false" />
+    <Property Name="ProdutosCodProduto" Type="String" Nullable="false" />
+    <NavigationProperty Name="DetalheCompras" Relationship="projetoda.DetalheCompraCompra" FromRole="Compra" ToRole="DetalheCompra" />
+  </EntityType>
+  <Association Name="ClienteCompra">
+    <End Type="projetoda.Compra" Role="Compra" Multiplicity="*" />
+    <End Type="projetoda.Cliente" Role="Cliente" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdPessoa" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DetalheCompra">
+    <Key>
+      <PropertyRef Name="ComprasNrCompras" />
+      <PropertyRef Name="ProdutoCodProduto" />
+    </Key>
+    <Property Name="Quantidade" Type="String" Nullable="false" />
+    <NavigationProperty Name="Compras" Relationship="projetoda.DetalheCompraCompra" FromRole="DetalheCompra" ToRole="Compra" />
+    <Property Name="ComprasNrCompras" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Produtos" Relationship="projetoda.ProdutoDetalheCompra" FromRole="DetalheCompra" ToRole="Produto" />
+    <Property Name="ProdutoCodProduto" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="DetalheCompraCompra">
+    <End Type="projetoda.DetalheCompra" Role="DetalheCompra" Multiplicity="*" />
+    <End Type="projetoda.Compra" Role="Compra" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Compra">
+        <PropertyRef Name="NrCompra" />
+      </Principal>
+      <Dependent Role="DetalheCompra">
+        <PropertyRef Name="ComprasNrCompras" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TipoProduto">
+    <Key>
+      <PropertyRef Name="CodTipoProduto" />
+    </Key>
+    <Property Name="Tipo" Type="String" Nullable="false" />
+    <Property Name="CodTipoProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Produto" Relationship="projetoda.ProdutoTipoProduto" FromRole="TipoProduto" ToRole="Produto" />
+  </EntityType>
+  <EntityType Name="Inscricao">
+    <Key>
+      <PropertyRef Name="FilhoIdPessoa" />
+      <PropertyRef Name="EventoNrEvento" />
+    </Key>
+    <Property Name="Confirmada" Type="String" Nullable="false" />
+    <NavigationProperty Name="Filhos" Relationship="projetoda.FilhoInscricao" FromRole="Inscricao" ToRole="Filho" />
+    <Property Name="FilhoIdPessoa" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Eventos" Relationship="projetoda.EventoInscricao" FromRole="Inscricao" ToRole="Evento" />
+    <Property Name="EventoNrEvento" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FilhoInscricao">
+    <End Type="projetoda.Filho" Role="Filho" Multiplicity="1" />
+    <End Type="projetoda.Inscricao" Role="Inscricao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filho">
+        <PropertyRef Name="IdPessoa" />
+      </Principal>
+      <Dependent Role="Inscricao">
+        <PropertyRef Name="FilhoIdPessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Participacao">
+    <Key>
+      <PropertyRef Name="IdEscola" />
+      <PropertyRef Name="NrEvento" />
+    </Key>
+    <NavigationProperty Name="Escolas" Relationship="projetoda.EscolaParticipacao" FromRole="Participacao" ToRole="Escola" />
+    <Property Name="IdEscola" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Eventos" Relationship="projetoda.EventoParticipacao" FromRole="Participacao" ToRole="Evento" />
+    <Property Name="NrEvento" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="EscolaParticipacao">
+    <End Type="projetoda.Escola" Role="Escola" Multiplicity="1" />
+    <End Type="projetoda.Participacao" Role="Participacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Escola">
+        <PropertyRef Name="IdEscola" />
+      </Principal>
+      <Dependent Role="Participacao">
+        <PropertyRef Name="IdEscola" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Evento">
+    <Key>
+      <PropertyRef Name="NrEvento" />
+    </Key>
+    <Property Name="NrEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descricao" Type="String" Nullable="false" />
+    <Property Name="Local" Type="String" Nullable="false" />
+    <Property Name="DataHora" Type="String" Nullable="false" />
+    <Property Name="LimiteParticipacao" Type="String" Nullable="false" />
+    <Property Name="IdadeInferior" Type="String" Nullable="false" />
+    <Property Name="IdadeSuperior" Type="String" Nullable="false" />
+    <Property Name="TipoEvento" Type="String" Nullable="false" />
+    <NavigationProperty Name="Participacoes" Relationship="projetoda.EventoParticipacao" FromRole="Evento" ToRole="Participacao" />
+    <NavigationProperty Name="Colaboracoes" Relationship="projetoda.EventoColaboracao" FromRole="Evento" ToRole="Colaboracao" />
+    <NavigationProperty Name="Inscricoes" Relationship="projetoda.EventoInscricao" FromRole="Evento" ToRole="Inscricao" />
+  </EntityType>
+  <Association Name="EventoParticipacao">
+    <End Type="projetoda.Evento" Role="Evento" Multiplicity="1" />
+    <End Type="projetoda.Participacao" Role="Participacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="NrEvento" />
+      </Principal>
+      <Dependent Role="Participacao">
+        <PropertyRef Name="NrEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Animador" BaseType="projetoda.Pessoa">
+    <Property Name="Especialidade" Type="String" Nullable="false" />
+    <NavigationProperty Name="Colaboracoes" Relationship="projetoda.AnimadorColaboracao" FromRole="Animador" ToRole="Colaboracao" />
+  </EntityType>
+  <EntityType Name="Colaboracao">
+    <Key>
+      <PropertyRef Name="IdAnimador" />
+      <PropertyRef Name="NrEvento" />
+    </Key>
+    <NavigationProperty Name="Animadores" Relationship="projetoda.AnimadorColaboracao" FromRole="Colaboracao" ToRole="Animador" />
+    <Property Name="IdAnimador" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Eventos" Relationship="projetoda.EventoColaboracao" FromRole="Colaboracao" ToRole="Evento" />
+    <Property Name="NrEvento" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="AnimadorColaboracao">
+    <End Type="projetoda.Animador" Role="Animador" Multiplicity="1" />
+    <End Type="projetoda.Colaboracao" Role="Colaboracao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animador">
+        <PropertyRef Name="IdPessoa" />
+      </Principal>
+      <Dependent Role="Colaboracao">
+        <PropertyRef Name="IdAnimador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventoColaboracao">
+    <End Type="projetoda.Evento" Role="Evento" Multiplicity="1" />
+    <End Type="projetoda.Colaboracao" Role="Colaboracao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="NrEvento" />
+      </Principal>
+      <Dependent Role="Colaboracao">
+        <PropertyRef Name="NrEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventoInscricao">
+    <End Type="projetoda.Evento" Role="Evento" Multiplicity="1" />
+    <End Type="projetoda.Inscricao" Role="Inscricao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="NrEvento" />
+      </Principal>
+      <Dependent Role="Inscricao">
+        <PropertyRef Name="EventoNrEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="CodProduto" />
+    </Key>
+    <Property Name="CodProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Designacao" Type="String" Nullable="false" />
+    <Property Name="Preco" Type="Double" Nullable="false" />
+    <Property Name="StockExistente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DetalheCompras" Relationship="projetoda.ProdutoDetalheCompra" FromRole="Produto" ToRole="DetalheCompra" />
+    <NavigationProperty Name="TipoProdutos" Relationship="projetoda.ProdutoTipoProduto" FromRole="Produto" ToRole="TipoProduto" />
+    <Property Name="CodTipoProduto" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ProdutoDetalheCompra">
+    <End Type="projetoda.Produto" Role="Produto" Multiplicity="1" />
+    <End Type="projetoda.DetalheCompra" Role="DetalheCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="CodProduto" />
+      </Principal>
+      <Dependent Role="DetalheCompra">
+        <PropertyRef Name="ProdutoCodProduto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProdutoTipoProduto">
+    <End Type="projetoda.Produto" Role="Produto" Multiplicity="*" />
+    <End Type="projetoda.TipoProduto" Role="TipoProduto" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TipoProduto">
+        <PropertyRef Name="CodTipoProduto" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="CodTipoProduto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
